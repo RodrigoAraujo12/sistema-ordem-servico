@@ -17,6 +17,13 @@ class OrdemServicoController extends Controller
 
     public function index()
     {
+        Log::info('ORDENSSERVICO INDEX', [
+            'auth_check' => auth()->check(),
+            'user_id' => auth()->id(),
+            'session_id' => request()->session()->getId(),
+            'has_cookie' => request()->hasCookie(config('session.cookie')),
+        ]);
+        
         $query = OrdemServico::query()->with(['cliente', 'tecnico'])->orderByDesc('created_at');
 
         // Técnico só vê suas ordens
