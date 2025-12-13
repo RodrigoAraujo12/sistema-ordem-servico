@@ -28,9 +28,9 @@ return [
 
     'domain' => env('SESSION_DOMAIN', null),
 
-    'secure' => env('SESSION_SECURE_COOKIES', true),
+    'secure' => true,
 
     'http_only' => true,
 
-    'same_site' => 'lax',
+    'same_site' => 'none',
 ];
