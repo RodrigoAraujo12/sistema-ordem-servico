@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => env('SESSION_DRIVER', 'file'),
+    'default' => env('SESSION_DRIVER', 'cookie'),
 
     'lifetime' => env('SESSION_LIFETIME', 120),
 
@@ -28,7 +28,7 @@ return [
 
     'domain' => env('SESSION_DOMAIN', null),
 
-    'secure' => env('SESSION_SECURE_COOKIES'),
+    'secure' => env('SESSION_SECURE_COOKIES', true),
 
     'http_only' => true,
 

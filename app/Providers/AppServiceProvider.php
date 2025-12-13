@@ -18,6 +18,9 @@ class AppServiceProvider extends ServiceProvider
         // Forçar HTTPS em produção
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
+            
+            // Forçar root URL para evitar problemas de domínio
+            $this->app['request']->server->set('HTTPS', 'on');
         }
 
         Livewire::component('listar-ordens-servico', \App\Http\Livewire\ListarOrdensServico::class);
