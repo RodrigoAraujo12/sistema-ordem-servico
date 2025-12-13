@@ -14,10 +14,20 @@ class AuthController extends Controller
 
     public function login()
     {
+        Log::info('LOGIN INICIADO', [
+            'method' => request()->method(),
+            'url' => request()->fullUrl(),
+            'ip' => request()->ip(),
+            'has_session' => request()->hasSession(),
+            'csrf_token' => request()->header('X-CSRF-TOKEN'),
+        ]);
+
         $credentials = request()->validate([
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
+
+        Log::info('VALIDAÇÃO OK', ['email' => request()->input('email')]);
 
         // Sanitizar email
         $credentials['email'] = filter_var($credentials['email'], FILTER_SANITIZE_EMAIL);
