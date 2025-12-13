@@ -18,6 +18,11 @@ return Application::configure(basePath: dirname(__DIR__))
         // Confiar em proxies (Railway, Cloudflare, etc)
         $middleware->trustProxies(at: '*');
         
+        // Validar host (aceitar qualquer host em produção)
+        $middleware->validateCsrfTokens(except: [
+            '*' // TEMPORÁRIO - desabilitar CSRF
+        ]);
+        
         // Rate Limiting para APIs e formulários
         $middleware->throttleApi();
         
