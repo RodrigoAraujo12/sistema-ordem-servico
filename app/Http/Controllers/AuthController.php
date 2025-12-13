@@ -35,9 +35,9 @@ class AuthController extends Controller
         $user = \App\Models\User::where('email', $credentials['email'])->first();
         Log::info('USUÁRIO ENCONTRADO?', ['exists' => $user ? 'SIM' : 'NÃO', 'email' => $credentials['email']]);
 
-        if (Auth::attempt($credentials, request()->boolean('remember'))) {
-            // Regenerar session ID para prevenir session fixation
-            request()->session()->regenerate();
+        if (Auth::attempt($credentials, true)) { // Força remember=true
+            // NÃO regenerar session para testar
+            // request()->session()->regenerate();
             
             // Log de acesso bem-sucedido
             Log::info('AUTH ATTEMPT SUCESSO', [
@@ -45,9 +45,11 @@ class AuthController extends Controller
                 'email' => $credentials['email'],
                 'session_id' => request()->session()->getId(),
                 'auth_check' => Auth::check(),
+                'session_driver' => config('session.driver'),
+                'cookie_name' => config('session.cookie'),
             ]);
 
-            return redirect()->intended('ordensservico');
+            return redirect('ordensservico');
         }
 
         // Log de tentativa falha

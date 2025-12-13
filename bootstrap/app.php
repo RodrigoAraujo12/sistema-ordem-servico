@@ -23,6 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
             '*' // TEMPORÁRIO - desabilitar CSRF
         ]);
         
+        // Garantir que session/cookie estão habilitados
+        $middleware->encryptCookies(except: []);
+        
         // Rate Limiting para APIs e formulários
         $middleware->throttleApi();
         
