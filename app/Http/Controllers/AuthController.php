@@ -19,7 +19,6 @@ class AuthController extends Controller
             'url' => request()->fullUrl(),
             'ip' => request()->ip(),
             'has_session' => request()->hasSession(),
-            'csrf_token' => request()->header('X-CSRF-TOKEN'),
         ]);
 
         $credentials = request()->validate([
@@ -32,25 +31,30 @@ class AuthController extends Controller
         // Sanitizar email
         $credentials['email'] = filter_var($credentials['email'], FILTER_SANITIZE_EMAIL);
 
+        // Verificar se usuário existe
+        $user = \App\Models\User::where('email', $credentials['email'])->first();
+        Log::info('USUÁRIO ENCONTRADO?', ['exists' => $user ? 'SIM' : 'NÃO', 'email' => $credentials['email']]);
+
         if (Auth::attempt($credentials, request()->boolean('remember'))) {
             // Regenerar session ID para prevenir session fixation
             request()->session()->regenerate();
             
             // Log de acesso bem-sucedido
-            Log::info('Login bem-sucedido', [
+            Log::info('AUTH ATTEMPT SUCESSO', [
                 'user_id' => Auth::id(),
                 'email' => $credentials['email'],
-                'ip' => request()->ip(),
-                'user_agent' => request()->userAgent(),
+                'session_id' => request()->session()->getId(),
+                'auth_check' => Auth::check(),
             ]);
 
             return redirect()->intended('ordensservico');
         }
 
         // Log de tentativa falha
-        Log::warning('Tentativa de login falhou', [
+        Log::warning('AUTH ATTEMPT FALHOU', [
             'email' => $credentials['email'],
             'ip' => request()->ip(),
+            'user_exists' => $user ? 'sim' : 'não',
         ]);
 
         return back()->withErrors([
