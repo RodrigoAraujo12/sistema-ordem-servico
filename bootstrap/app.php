@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
         
+        // Confiar em proxies (Railway, Cloudflare, etc)
+        $middleware->trustProxies(at: '*');
+        
         // Rate Limiting para APIs e formulários
         $middleware->throttleApi();
         
