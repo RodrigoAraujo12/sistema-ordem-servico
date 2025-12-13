@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\OrdemServico;
+use Carbon\Carbon;
+
+class AdminDashboardController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
+    public function index()
+    {
+        $now = Carbon::now();
+        $startOfMonth = $now->copy()->startOfMonth();
+
+        // Receita: soma de valor_aprovado de ordens concluídas/entregues
+        $totalReceita = OrdemServico::whereIn('status', ['concluido', 'entregue'])
+            ->sum('valor_aprovado');
+
+        // Receita do mês baseada na data de saída (finalização)
+        $receitaMes = OrdemServico::whereIn('status', ['concluido', 'entregue'])
+            ->whereNotNull('data_saida')
+            ->where('data_saida', '>=', $startOfMonth)
+            ->sum('valor_aprovado');
+
+        // Contagem de ordens concluídas no mês (pela data de saída)
+        $ordensConcluidasMes = OrdemServico::whereIn('status', ['concluido', 'entregue'])
+            ->whereNotNull('data_saida')
+            ->where('data_saida', '>=', $startOfMonth)
+            ->count();
+
+        $ticketMedioMes = $ordensConcluidasMes > 0 ? round($receitaMes / $ordensConcluidasMes, 2) : 0;
+
+        // Por status no mês
+        $porStatusMes = OrdemServico::selectRaw('status, COUNT(*) as total')
+            ->where('updated_at', '>=', $startOfMonth)
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        // Top técnicos por receita no mês
+        $topTecnicosMes = OrdemServico::selectRaw('tecnico_id, SUM(valor_aprovado) as receita, COUNT(*) as ordens')
+            ->whereIn('status', ['concluido', 'entregue'])
+            ->whereNotNull('data_saida')
+            ->where('data_saida', '>=', $startOfMonth)
+            ->groupBy('tecnico_id')
+            ->with('tecnico')
+            ->orderByDesc('receita')
+            ->limit(5)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'totalReceita', 'receitaMes', 'ordensConcluidasMes', 'ticketMedioMes', 'porStatusMes', 'topTecnicosMes'
+        ));
+    }
+}
