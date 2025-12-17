@@ -258,7 +258,23 @@ php artisan serve --port=8080
 
 ## � Screenshots
 
-> _Adicione capturas de tela do dashboard, ordens de serviço, perfil do cliente, etc._
+### 🔐 Tela de Login
+![Login](.github/images/screenshot-login.png)
+
+### 📊 Dashboard Principal
+![Dashboard](.github/images/dashboard.jpeg)
+
+### 🛠️ Gestão de Ordens de Serviço
+![Serviços](.github/images/serviços.jpeg)
+
+### 📋 Histórico de Alterações
+![Histórico](.github/images/historico_servico.jpeg)
+
+### 👤 Perfil do Cliente
+![Cliente](.github/images/cliente_aba.jpeg)
+
+### 📄 Exemplo de PDF Gerado
+![PDF](.github/images/exemplo%20de%20pdf.jpeg)
 
 ## 🚀 Deploy
 
