@@ -1,25 +1,87 @@
-# Sistema de Ordens de Serviço para Assistência Técnica
+# 🔧 Sistema de Ordens de Serviço para Assistência Técnica
 
-Um sistema completo para gerenciar ordens de serviço técnico, desenvolvido com **Laravel 11**, **Livewire**, **Blade**, **Tailwind CSS** e **PostgreSQL**.
+> Sistema completo e moderno para gerenciamento de ordens de serviço técnico com dashboard interativo, controle financeiro, notificações por email e acesso público via token.
 
-## 🚀 Funcionalidades
+![Laravel](https://img.shields.io/badge/Laravel-11.x-red?style=flat-square&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.2+-blue?style=flat-square&logo=php)
+![Livewire](https://img.shields.io/badge/Livewire-3.x-purple?style=flat-square)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-blue?style=flat-square&logo=tailwind-css)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-- ✅ **Gestão de Clientes** - Cadastro e gerenciamento de clientes
-- ✅ **Ordens de Serviço** - Criação, edição e visualização de ordens
-- ✅ **Rastreamento de Status** - Em análise, Aguardando peça, Em reparo, Concluído, Entregue
-- ✅ **Valores e Orçamentos** - Controle de orçamento e valor aprovado
-- ✅ **Geração de PDF** - PDFs formatados das ordens de serviço para entregar ao cliente
-- ✅ **Autenticação** - Sistema de login com roles (Admin e Técnico)
-- ✅ **Dashboard Responsivo** - Interface com Tailwind CSS
-- ✅ **Componentes Livewire** - Interatividade sem recarregar a página
+## ✨ Funcionalidades Principais
 
-## 📋 Stack
+### 📊 Dashboard Interativo
+- ✅ **Métricas em Tempo Real** - Total de ordens, receita, tickets abertos e conclusões do mês
+- ✅ **Gráficos Dinâmicos** - ApexCharts com visualização de receita mensal, distribuição por status e evolução de conclusões
+- ✅ **Filtros Avançados** - Busca por cliente, número da ordem e filtro por status
+- ✅ **Design Responsivo** - Interface moderna com Tailwind CSS e gradientes personalizados
 
-- **Backend**: Laravel 11
-- **Frontend**: Blade + Livewire 3 + Tailwind CSS
-- **Database**: PostgreSQL
-- **PDF**: Barryvdh DomPDF
-- **Autenticação**: Laravel Breeze
+### 🛠️ Gestão de Ordens de Serviço
+- ✅ **Numeração Automática** - Geração de número único (OS-YYYYMMDD0001)
+- ✅ **6 Status Diferentes** - Em análise, Aguardando peça, Em reparo, Concluído, Entregue, Cancelado
+- ✅ **Histórico Completo** - Auditoria de todas as alterações (quem, quando, o que mudou)
+- ✅ **Atribuição de Técnico** - Designação de responsável por cada ordem
+- ✅ **Datas Rastreadas** - Entrada, conclusão e entrega
+
+### 💰 Controle Financeiro
+- ✅ **Múltiplos Pagamentos** - Registro de pagamentos parciais ou totais
+- ✅ **Cálculo Automático** - Total pago e saldo a receber computados em tempo real
+- ✅ **Histórico de Pagamentos** - Data, valor e forma de pagamento registrados
+
+### 👥 Gestão de Clientes
+- ✅ **Perfil Detalhado** - Visualização completa com estatísticas do cliente
+- ✅ **Estatísticas** - Total de ordens, valor gasto e ordens em aberto
+- ✅ **Histórico de Ordens** - Todas as ordens do cliente em ordem cronológica
+- ✅ **CRUD Completo** - Criar, editar, visualizar e excluir clientes
+
+### 📧 Notificações por Email
+- ✅ **Alertas Automáticos** - Email enviado ao cliente quando o status muda
+- ✅ **Acesso Público via Token** - Link único e seguro no email (válido por 30 dias)
+- ✅ **Visualização sem Login** - Cliente visualiza sua ordem sem necessidade de cadastro
+- ✅ **Sistema de Fila** - Emails processados em background (ShouldQueue)
+
+### 📄 Geração de PDF
+- ✅ **PDF Profissional** - Layout customizado com logo e informações completas
+- ✅ **Visualizar ou Baixar** - Opções de preview no navegador ou download direto
+- ✅ **Informações Completas** - Cliente, aparelho, defeito, valores, status, observações
+
+### 🔐 Segurança e Autenticação
+- ✅ **Autenticação Robusta** - Login com email/senha e verificação CSRF
+- ✅ **3 Níveis de Acesso** - Admin (acesso total), Técnico (visualização e edição), Guest (acesso público via token)
+- ✅ **Rate Limiting** - Limite de 5 tentativas de login por minuto
+- ✅ **Security Headers** - X-Frame-Options, CSP, X-XSS-Protection, etc.
+- ✅ **Proteção XSS/SQL Injection** - Sanitização de inputs e queries parametrizadas
+- ✅ **Logs de Auditoria** - Registro de login, logout e acessos públicos com IP/user-agent
+- ✅ **Tokens de Acesso Público** - 64 caracteres hexadecimais com expiração de 30 dias
+- ✅ **Regeneração de Sessão** - Prevenção de session fixation attacks
+
+### 🎨 Interface e UX
+- ✅ **Design Moderno** - Interface glassmorphism com gradientes e animações
+- ✅ **Totalmente Responsiva** - Adaptada para desktop, tablet e mobile
+- ✅ **Modais Customizados** - Confirmações visuais com Alpine.js
+- ✅ **Feedback Visual** - Toasts, badges coloridos por status, loading states
+- ✅ **Timeline Visual** - Linha do tempo do progresso da ordem
+
+## �️ Tecnologias Utilizadas
+
+### Backend
+- **Laravel 11** - Framework PHP moderno e robusto
+- **PHP 8.2+** - Linguagem de programação
+- **SQLite/PostgreSQL** - Banco de dados relacional
+- **Eloquent ORM** - Mapeamento objeto-relacional
+
+### Frontend
+- **Blade Templates** - Engine de templates do Laravel
+- **Livewire 3** - Componentes reativos full-stack
+- **Tailwind CSS 3** - Framework CSS utility-first
+- **Alpine.js** - Framework JavaScript minimalista
+- **ApexCharts** - Biblioteca de gráficos interativos
+
+### Bibliotecas e Ferramentas
+- **Barryvdh DomPDF** - Geração de PDFs
+- **Laravel Notifications** - Sistema de notificações
+- **Laravel Queues** - Processamento assíncrono
+- **Middleware Customizado** - Security Headers, Admin, TrustProxies
 
 ## 🛠️ Instalação e Configuração
 
@@ -87,16 +149,11 @@ Um sistema completo para gerenciar ordens de serviço técnico, desenvolvido com
 
 Após executar os seeders, use as seguintes credenciais:
 
-### Admin
-- **Email**: admin@example.com
-- **Senha**: password
-- **Permissões**: Acesso total ao sistema
-
-### Técnico
-- **Email**: tecnico1@example.com
-- **Senha**: password
-- **Email**: tecnico2@example.com
-- **Senha**: password
+| Tipo | Email | Senha | Permissões |
+|------|-------|-------|------------|
+| **Admin** | admin@example.com | password | Acesso total (criar, editar, excluir ordens/clientes/pagamentos) |
+| **Técnico** | tecnico1@example.com | password | Visualizar e editar ordens, sem permissão de exclusão |
+| **Técnico** | tecnico2@example.com | password | Visualizar e editar ordens, sem permissão de exclusão |
 
 ## 📁 Estrutura do Projeto
 
@@ -120,12 +177,23 @@ Após executar os seeders, use as seguintes credenciais:
 └── config/
 ```
 
-## 🔐 Funcionalidades de Segurança
+## 🔐 Segurança Implementada (OWASP Top 10)
 
-- Autenticação com email e senha
-- Middleware de autenticação nas rotas protegidas
-- Proteção CSRF (Cross-Site Request Forgery)
-- Hash de senhas com Bcrypt
+### Proteções Ativas
+- ✅ **CSRF Protection** - Token em todos os formulários
+- ✅ **XSS Prevention** - Sanitização automática do Blade (`{{ }}`)
+- ✅ **SQL Injection** - Queries parametrizadas via Eloquent ORM
+- ✅ **Clickjacking** - Header `X-Frame-Options: SAMEORIGIN`
+- ✅ **MIME Sniffing** - Header `X-Content-Type-Options: nosniff`
+- ✅ **Content Security Policy** - CSP configurado para Tailwind/Alpine CDNs
+- ✅ **Rate Limiting** - 5 tentativas de login por minuto
+- ✅ **Session Security** - Regeneração de ID em login/logout
+- ✅ **Password Hashing** - Bcrypt com salt automático
+- ✅ **Audit Logging** - Logs de acesso com IP e user-agent
+- ✅ **Public Token System** - Tokens hexadecimais de 64 chars com expiração
+
+### Documentação Completa
+Consulte [SEGURANCA.md](SEGURANCA.md) para detalhes sobre todas as medidas de segurança implementadas.
 
 ## 📝 Campos da Ordem de Serviço
 
@@ -188,21 +256,70 @@ Verifique se:
 php artisan serve --port=8080
 ```
 
+## � Screenshots
+
+> _Adicione capturas de tela do dashboard, ordens de serviço, perfil do cliente, etc._
+
+## 🚀 Deploy
+
+### Opções de Hospedagem Gratuita
+- **Railway** (recomendado) - $5 crédito mensal grátis
+- **Render.com** - 750 horas grátis por mês
+- **Fly.io** - Plano hobby gratuito
+- **Ngrok** - Túnel local para demo temporário
+
+### Configurações de Produção
+Consulte [DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md) para instruções detalhadas de deploy.
+
 ## 📚 Documentação Adicional
 
+- **[SEGURANCA.md](SEGURANCA.md)** - Guia completo de segurança implementada
+- **[NOTIFICACOES_EMAIL.md](NOTIFICACOES_EMAIL.md)** - Configuração de emails (Mailtrap/Gmail)
+- **[DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md)** - Passo a passo para deploy no Railway
 - [Laravel Docs](https://laravel.com/docs)
 - [Livewire Docs](https://livewire.laravel.com)
 - [Tailwind CSS Docs](https://tailwindcss.com)
-- [DomPDF Docs](https://github.com/barryvdh/laravel-dompdf)
+
+## 🎯 Conceitos Aplicados
+
+### Arquitetura e Padrões
+- **MVC** - Model-View-Controller
+- **Repository Pattern** - Separação de lógica de dados
+- **Service Layer** - Camada de serviços para lógica de negócio
+- **Observer Pattern** - Eventos e Listeners do Laravel
+- **SOLID Principles** - Clean Code e Single Responsibility
+
+### Técnicas de Desenvolvimento
+- **Full-Stack Reactivity** - Livewire para SPA-like experience
+- **Server-Side Rendering** - Blade templates performáticos
+- **Database Migrations** - Versionamento de banco de dados
+- **Seeders e Factories** - Dados de teste automatizados
+- **Middleware Pipeline** - Filtros HTTP customizados
+- **Queue System** - Processamento assíncrono de emails
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para:
+- Reportar bugs
+- Sugerir novas funcionalidades
+- Melhorar a documentação
+- Submeter Pull Requests
 
 ## 📝 Licença
 
-MIT
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## 👨‍💻 Autor
 
-Sistema desenvolvido para gerenciar ordens de serviço técnico com interface moderna e responsiva.
+**Sistema de Ordens de Serviço**  
+Desenvolvido como projeto de portfólio demonstrando habilidades em:
+- Desenvolvimento Full-Stack com Laravel
+- Design de interfaces modernas e responsivas
+- Implementação de melhores práticas de segurança
+- Arquitetura de software escalável
 
 ---
 
-**Desenvolvido com ❤️ usando Laravel e Livewire**
+⭐ **Se este projeto foi útil, considere deixar uma estrela!**
+
+**Desenvolvido com ❤️ usando Laravel 11 + Livewire 3 + Tailwind CSS**
